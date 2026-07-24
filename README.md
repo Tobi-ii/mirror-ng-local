@@ -4,6 +4,8 @@ Track all your Nigerian bank accounts in one place. No APIs needed - just your e
 
 > See [README-DATA.md](./README-DATA.md) for the data engineering, ML, and AI agent deep-dive.
 
+**Live instance → [mirror-ng.vercel.app](https://mirror-ng.vercel.app/)** — no setup required, just visit and connect your email.
+
 ## Features
 
 - **Privacy First** - Only reads bank alert emails, stores nothing else
@@ -166,12 +168,6 @@ Same variables as above plus `DATABASE_URL`.
 - **Backend**: FastAPI, SQLAlchemy, SQLite
 - **ML/AI**: scikit-learn, OpenRouter, NVIDIA NIM, Groq, DeepSeek
 - **Email**: IMAP (Yahoo/Gmail), Gmail API (OAuth)
-
----
-
-## Live URL
-
-The official instance runs at **[mirror.ng](https://mirror-ng.fly.dev/)** — no setup required, just visit and connect your email.
 
 ---
 
