@@ -1,0 +1,5 @@
+# Replace example.com with your actual domain
+# For testing without a domain, use :80 instead
+:80, example.com, www.example.com {
+    reverse_proxy mirror:8080
+}

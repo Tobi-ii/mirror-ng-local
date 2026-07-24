@@ -1,0 +1,25 @@
+# ============================================
+# MIRROR.NG - Development Dependencies
+# ============================================
+# 
+# Installation: pip install -r requirements-dev.txt
+# ============================================
+
+# Core requirements first
+-r requirements.txt
+
+# Additional dev tools
+pre-commit==3.6.0
+ruff==0.8.0
+tox==4.11.0
+ipython==8.18.0
+ipdb==0.13.13
+debugpy==1.8.0
+
+# Documentation
+mkdocs==1.5.3
+mkdocs-material==9.5.0
+
+# Performance profiling
+memory-profiler==0.61.0
+line-profiler==4.1.2

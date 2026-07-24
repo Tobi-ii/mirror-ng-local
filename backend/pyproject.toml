@@ -1,0 +1,84 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mirror-ng"
+version = "1.2.0"
+description = "Financial mirror for Nigerian bank alerts with ML insights"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [
+    {name = "Mirror.ng Team", email = "team@mirror.ng"}
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Financial and Insurance Industry",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+dependencies = [
+    "fastapi==0.104.1",
+    "uvicorn[standard]==0.24.0",
+    "python-multipart==0.0.6",
+    "python-dotenv==1.0.0",
+    "email-validator==2.1.0",
+    "pydantic==2.13.3",
+    "sqlalchemy==2.0.23",
+    "google-auth==2.23.4",
+    "google-auth-oauthlib==1.1.0",
+    "google-api-python-client==2.108.0",
+    "authlib==1.3.0",
+    "beautifulsoup4==4.12.2",
+    "scikit-learn==1.7.0",
+    "numpy==1.26.4",
+    "joblib==1.5.3",
+    "groq==0.4.2",
+    "openai==1.3.0",
+    "requests==2.31.0",
+    "python-dateutil==2.8.2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.3",
+    "pytest-asyncio>=0.21.1",
+    "pytest-cov>=4.1.0",
+    "black>=23.12.1",
+    "isort>=5.13.2",
+    "flake8>=7.0.0",
+    "mypy>=1.8.0",
+    "pre-commit>=3.6.0",
+]
+prod = [
+    "gunicorn>=21.2.0",
+    "uvloop>=0.19.0",
+    "httptools>=0.6.1",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/mirror-ng/mirror-ng"
+"Bug Reports" = "https://github.com/mirror-ng/mirror-ng/issues"
+"Source" = "https://github.com/mirror-ng/mirror-ng"
+
+[tool.black]
+line-length = 100
+target-version = ['py39', 'py310', 'py311', 'py312']
+
+[tool.isort]
+profile = "black"
+line_length = 100
+
+[tool.mypy]
+ignore_missing_imports = true
+python_version = "3.9"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

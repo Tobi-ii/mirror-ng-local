@@ -1,0 +1,219 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* * Mirror.ng - Global Styles 
+ */
+
+/* Base styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #050608;
+  @apply text-white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: #050608;
+}
+
+/* ── Scrollbar Control ──────────────────────────────────────────────── */
+
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-white/10 rounded-full hover:bg-white/20 transition-colors;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* ── Date Input Theming ─────────────────────────────────────────────── */
+
+input[type="date"] {
+  color-scheme: dark;
+}
+
+/* Stretches the native browser calendar icon over the whole input, 
+   makes it invisible, and strips out the active focus highlight box */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  cursor: pointer;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+/* Outer border ring and outline control only — background tint removed completely */
+input[type="date"]:focus,
+input[type="date"]:focus-within,
+input[type="date"]:active {
+  border-color: rgb(168, 85, 247) !important; /* border-purple-500 */
+  box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.2) !important; /* ring-4 ring-purple-500/20 */
+  outline: none !important;
+}
+
+/* ── Animations ─────────────────────────────────────────────────────── */
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-3px); }
+  40%, 80% { transform: translateX(3px); }
+}
+
+@keyframes pagePulsePurple {
+  0%, 100% { box-shadow: inset 0 0 0 0 rgba(168, 85, 247, 0); }
+  50% { box-shadow: inset 0 0 100px 40px rgba(168, 85, 247, 0.2); }
+}
+
+@keyframes pagePulseGreen {
+  0%, 100% { box-shadow: inset 0 0 0 0 rgba(16, 185, 129, 0); }
+  50% { box-shadow: inset 0 0 100px 30px rgba(16, 185, 129, 0.3); }
+}
+
+@keyframes pagePulseRed {
+  0%, 100% { box-shadow: inset 0 0 0 0 rgba(239, 68, 68, 0); }
+  50% { box-shadow: inset 0 0 100px 30px rgba(239, 68, 68, 0.4); }
+}
+
+.animate-shake { animation: shake 0.4s ease-in-out; }
+.animate-page-purple { animation: pagePulsePurple 5s ease-in-out forwards; }
+.animate-page-green { animation: pagePulseGreen 3s ease-in-out forwards; }
+.animate-page-red { animation: pagePulseRed 1s ease-in-out forwards; }
+
+@keyframes gmailShimmer {
+  0%, 100% { 
+    box-shadow: 0 0 0px 0px rgba(168, 85, 247, 0);
+    background-color: rgba(168, 85, 247, 0);
+  }
+  50% { 
+    box-shadow: 0 0 10px 2px rgba(168, 85, 247, 0.15);
+    background-color: rgba(168, 85, 247, 0.05);
+  }
+}
+
+.animate-gmail-shimmer { animation: gmailShimmer 1.5s ease-in-out; }
+
+/* ── Component Styles ────────────────────────────────────────────────── */
+
+.tx-credit {
+  @apply text-emerald-400 font-bold;
+}
+
+.tx-debit {
+  @apply text-rose-500 font-bold;
+}
+
+.bank-gradient-sterling {
+  background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%);
+}
+
+.bank-gradient-alat {
+  background: linear-gradient(135deg, #e11d48 0%, #9f1239 100%);
+}
+
+.bank-gradient-wema {
+  background: linear-gradient(135deg, #be185d 0%, #831843 100%);
+}
+
+.bank-gradient-kuda {
+  background: linear-gradient(135deg, #059669 0%, #064e3b 100%);
+}
+
+/* ── Accessibility ───────────────────────────────────────────────────── */
+
+:focus-visible {
+  @apply outline-none ring-2 ring-indigo-500 ring-offset-2 ring-offset-black;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+::selection {
+  @apply bg-indigo-500/30 text-white;
+}
+
+/* ── Print Styles ────────────────────────────────────────────────────── */
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background-color: white;
+    color: black;
+  }
+}

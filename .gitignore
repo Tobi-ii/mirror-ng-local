@@ -1,0 +1,60 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+.coverage
+*.log
+
+# Environment
+.env
+backend/.env
+frontend/.env
+.env.local
+.env.*.local
+*.env.backup
+*.env.bak
+
+# Database
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+
+# Frontend
+node_modules/
+dist/
+build/
+.DS_Store
+*.local
+
+# Backend
+backend/node_modules/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Secrets
+*.pem
+*.key
+credentials.json
+token.json
+
+# Debug / temp folders
+Debug Del/
+.sixth/
+
+# Frontend build cache
+.vite/
+.next/
