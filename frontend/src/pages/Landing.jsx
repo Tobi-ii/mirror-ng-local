@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Shield, Zap, Github, Mail, Database, Lock, Clock, AlertCircle, Eye, EyeOff } from 'lucide-react'
 import { api } from '../services/api'
 
-export function Landing({ onLogin, onEasterEggClick, user, onStartSync }) {
+export function Landing({ onLogin, user, onStartSync }) {
   // ── UI state ──────────────────────────────────────────────────────────
   const [isLoading, setIsLoading] = useState(false)        // true while login is in progress
   const [showEmailForm, setShowEmailForm] = useState(false) // show the inline email/password form?
@@ -121,16 +121,7 @@ export function Landing({ onLogin, onEasterEggClick, user, onStartSync }) {
     }
   }
 
-  useEffect(() => {
-    if (step !== 3) return
-    const handleDocClick = (e) => {
-      if (e.target.closest('button') || e.target.closest('a') || e.target.closest('input')) return
-      clearTimeout(globalTimer.current)
-      onEasterEggClick()
-    }
-    document.addEventListener('click', handleDocClick)
-    return () => document.removeEventListener('click', handleDocClick)
-  }, [step, onEasterEggClick])
+  }, [step])
 
   useEffect(() => {
     return () => {

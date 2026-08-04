@@ -1,23 +1,20 @@
-// App.jsx — The root component. Controls which page the user sees (Landing vs Dashboard vs Secret)
+// App.jsx — The root component. Controls which page the user sees (Landing vs Dashboard)
 // and manages the login/logout flow plus cloud sync preference.
 import React, { useState, useEffect, useCallback } from 'react';
 import Dashboard from './pages/Dashboard';
 import { Landing } from './pages/Landing';
-import SecretImap from './pages/SecretImap';
 
 import { BalanceProvider } from './contexts/BalanceContext';
 import { BlurProvider } from './hooks/useBlurContext';
 import { setCloudSync, setUserId, api } from './services/api';
 
 function App() {
-  // Which screen to show: 'loading' | 'landing' | 'dashboard' | 'secret'
+  // Which screen to show: 'loading' | 'landing' | 'dashboard'
   const [view, setView] = useState('loading');
   // The logged-in user's data (id, email, token), null until they log in
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const handleUnlock = useCallback(() => setView('secret'), []);
-  const handleCloseSecret = useCallback(() => setView('landing'), []);
   useEffect(() => {
     const checkAuth = async () => {
       const params = new URLSearchParams(window.location.search.substring(1));
@@ -109,15 +106,10 @@ function App() {
     );
   }
 
-  if (view === 'secret') {
-    return <SecretImap onClose={handleCloseSecret} />;
-  }
-
   if (view === 'landing') {
     return (
       <Landing
         onLogin={handleLogin}
-        onEasterEggClick={handleUnlock}
         user={user}
         onStartSync={handleStartSync}
       />

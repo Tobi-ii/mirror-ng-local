@@ -178,19 +178,6 @@ def init_db():
     ''')
     conn.execute('DELETE FROM token_blacklist WHERE expires_at < datetime("now")')
 
-    # ── Easter egg prize (single-claim) ────────────────────────────
-    conn.execute('''
-        CREATE TABLE IF NOT EXISTS easter_egg (
-            id INTEGER PRIMARY KEY CHECK (id = 1),
-            is_active BOOLEAN DEFAULT 0,
-            code TEXT,
-            claimed_by TEXT,
-            claimed_at TIMESTAMP,
-            reward_amount REAL DEFAULT 10000.00
-        )
-    ''')
-    conn.execute('INSERT OR IGNORE INTO easter_egg (id, is_active) VALUES (1, 0)')
-
     # ── Indexes for common query patterns ─────────────────────────
     conn.execute('''
         CREATE INDEX IF NOT EXISTS idx_transactions_user_timestamp
