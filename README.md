@@ -1,62 +1,79 @@
-# Mirror.ng - Your Financial Mirror
+# Mirror.ng | AI-Powered Financial Data & Analytics Platform
 
-Track all your Nigerian bank accounts in one place. No APIs needed - just your email alerts.
+[![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green.svg)](https://fastapi.tiangolo.com/)
+[![React](https://img.shields.io/badge/React-18-blue.svg)](https://reactjs.org/)
+[![scikit-learn](https://img.shields.io/badge/ML-scikit--learn-orange.svg)](https://scikit-learn.org/)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Vercel-000000.svg)](https://mirror-ng.vercel.app/)
 
-> See [README-DATA.md](./README-DATA.md) for the data engineering, ML, and AI agent deep-dive.
+Mirror.ng is a production-grade, full-stack financial data platform that automates the ingestion of unstructured bank alerts, applies machine learning for financial insights, and provides an LLM-powered AI agent for natural-language data querying. 
 
-**Live instance → [mirror-ng.vercel.app](https://mirror-ng.vercel.app/)** — no setup required, just visit and connect your email.
-
-## Features
-
-- **Privacy First** - Only reads bank alert emails, stores nothing else
-- **Multi-Bank Support** - Sterling, Wema/ALAT, Kuda, Opay, GTBank, Access, Stanbic, Standard Chartered, Moniepoint, PalmPay, FirstBank
-- **Real-time Mirror** - Automatic balance updates from email alerts
-- **Open Source** - Fully auditable, self-hostable
-- **Manual Adjustments** - Fix balances anytime
-- **ML-Powered Suggestions** - Smart transaction categorization and alias recommendations
-- **AI Agent Chat** - Ask questions about your finances using LLMs
-- **Anchor Accounts** - Pin one account to track your true financial position
+🔗 **Live Production App:** [https://mirror-ng.vercel.app/](https://mirror-ng.vercel.app/)
 
 ---
 
-## Prerequisites
+## 🚀 Key Features
 
-- **Python 3.9+**
-- **Node.js 18+**
-- **A Yahoo or Gmail account** with app password enabled (for bank email alerts)
-- **(Optional) Docker** for containerized deployment
-
----
-
-## API Keys You'll Need
-
-Mirror.ng uses several external services. You only need to configure the ones you want to use:
-
-| Key | Required For | How to Get |
-|-----|-------------|------------|
-| `OPENROUTER_API_KEY` | AI Agent Chat | Sign up at [openrouter.ai](https://openrouter.ai) and create an API key |
-| `NVIDIA_API_KEY` | AI Agent Chat (fallback) | Sign up at [build.nvidia.com](https://build.nvidia.com) and get an API key |
-| `GROQ_API_KEY` | ML Insights | Sign up at [console.groq.com](https://console.groq.com) |
-| `DEEPSEEK_API_KEY` | ML Insights | Sign up at [platform.deepseek.com](https://platform.deepseek.com) |
-| `SECRET_KEY` | JWT signing (security) | Generate with: `python -c "import secrets; print(secrets.token_hex(32))"` |
-| `SESSION_SECRET_KEY` | OAuth sessions (security) | Generate with: `python -c "import secrets; print(secrets.token_hex(32))"` |
-| `EMAIL_ENCRYPTION_KEY` | Password encryption (security) | Generate with: `python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"` |
-| `ADMIN_KEY` | Admin API endpoints (optional) | Any secure random string |
-| `GOOGLE_CLIENT_ID/SECRET` | Gmail OAuth login | Set up a Web Application OAuth Client ID on [Google Cloud Console](https://console.cloud.google.com) |
+- **Automated ETL Pipeline**: Custom Python parsers convert unstructured bank alert emails (supporting 11+ Nigerian banks) into normalized, structured transaction records in real-time.
+- **AI Agent Chat**: An LLM-powered assistant that reasons over user intents, executes tool-use via custom API endpoints, and retrieves structured financial data.
+- **Machine Learning Insights**: Integrated `scikit-learn` models for automated transaction categorization, spend forecasting, and anomaly detection.
+- **Data Quality & Validation**: Rigorous schema validation and data cleaning rules ensure transaction integrity and ledger accuracy before storage.
+- **Privacy-First Architecture**: Designed to read only bank alert emails, storing no extraneous personal data. Fully auditable and self-hostable.
 
 ---
 
-## Quick Start
+## 🧠 AI Agent & Orchestration Architecture
+
+The AI Agent Chat is designed around the core principles of agentic AI workflows, bridging the gap between natural language and structured databases:
+1. **Intent Recognition**: The LLM analyzes natural language queries to determine the user's financial goal.
+2. **Tool-Use Interface**: The agent executes structured API calls to backend FastAPI endpoints to retrieve transaction history, run forecasts, or query account balances.
+3. **Multi-Step Reasoning**: Capable of chaining requests (e.g., "Show me my spending trends this month and flag any anomalies").
+4. **Resilient Fallback**: Orchestrates across multiple LLM providers (OpenRouter, NVIDIA NIM, Groq, DeepSeek) to ensure high availability and reliable data retrieval.
+
+---
+
+## 🔄 Data Pipeline & Quality Assurance
+
+Built with robust data engineering practices to handle messy, real-world financial data:
+- **Ingestion**: IMAP and Gmail API (OAuth) listeners continuously poll for new bank alerts.
+- **Transformation**: Custom parsers extract entities (date, amount, merchant, balance, narration) from highly variable, unstructured email formats across 11 different banking institutions.
+- **Data Cleaning & Validation**: Validation layers check for schema compliance, duplicate detection, and logical consistency (e.g., balance reconciliation) before committing to the database.
+- **Conceptual Modeling**: Designed with a medallion-style architecture in mind: *Bronze* (raw email payloads) → *Silver* (parsed, validated transactions) → *Gold* (aggregated insights and ML features).
+
+---
+
+## 📊 Data Science & Machine Learning
+
+The platform goes beyond simple data storage, applying statistical and ML techniques to generate predictive insights:
+- **Spend Forecasting**: Linear regression and exponential smoothing models predict future cash flow based on historical transaction patterns.
+- **Anomaly Detection**: Statistical methods flag unusual transactions or balance discrepancies for user review, ensuring data integrity.
+- **Transaction Categorization**: `scikit-learn` classifiers automatically tag transactions based on merchant names and historical user behavior.
+- **Model Serving**: All ML capabilities are exposed via clean, typed FastAPI endpoints with strict Pydantic JSON schemas, making them easily consumable by the AI agent and frontend.
+
+---
+
+## 🛠️ Tech Stack
+
+| Domain | Technologies |
+| :--- | :--- |
+| **Backend & API** | Python, FastAPI, SQLAlchemy, SQLite, Pydantic, Uvicorn |
+| **Frontend** | React 18, Vite, Tailwind CSS |
+| **Data Science & ML** | scikit-learn, Pandas, NumPy, Linear Regression, Exponential Smoothing |
+| **AI & LLMs** | OpenRouter, NVIDIA NIM, Groq, DeepSeek, Prompt Engineering |
+| **Data & ETL** | IMAP, Gmail API (OAuth), Custom Regex/NLP Parsers |
+| **DevOps & Infra** | Docker, Docker Compose, Git, GitHub, Vercel (Production) |
+
+---
+
+## ⚡ Quick Start (Local Development)
 
 ### 1. Clone & Setup Environment
-
 ```bash
-git clone https://github.com/YOUR_USERNAME/mirror-ng-local.git
+git clone https://github.com/Tobi-ii/mirror-ng-local.git
 cd mirror-ng-local
 ```
 
 ### 2. Backend Setup
-
 ```bash
 cd backend
 
@@ -75,102 +92,54 @@ pip install -r requirements.txt
 # Create your .env file from the template
 cp .env.example .env
 ```
-
-**Edit `backend/.env`** and fill in your credentials. At minimum, you need:
-- `SECRET_KEY`, `SESSION_SECRET_KEY`, `EMAIL_ENCRYPTION_KEY` - generate these
-- `YAHOO_EMAIL` / `YAHOO_APP_PASSWORD` - your Yahoo email and app password
-- `OPENROUTER_API_KEY` - if you want AI features
+*Edit `backend/.env` and fill in your credentials. At minimum, you need `SECRET_KEY`, `SESSION_SECRET_KEY`, `EMAIL_ENCRYPTION_KEY`, and your email credentials.*
 
 Start the backend:
 ```bash
 uvicorn app.main:app --reload
 ```
-
-The backend runs on `http://localhost:8000`.
+*The backend runs on `http://localhost:8000`*
 
 ### 3. Frontend Setup
-
 Open a new terminal:
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
+*The frontend runs on `http://localhost:5173`*
 
-The frontend runs on `http://localhost:5173`.
-
-### 4. Open in Browser
-
-Visit **http://localhost:5173** and log in with your email credentials.
-
----
-
-## Docker Setup (Alternative)
-
+### 4. Docker Setup (Alternative)
 ```bash
 # Copy the root .env template
 cp .env.example .env
 
 # Edit .env with all your credentials
-# (This is the Docker-compatible env — includes all required vars)
-
 # Start everything
 docker compose up -d
 ```
-
-Open http://localhost:80
-
----
-
-## Configuration Reference
-
-### `backend/.env` (for manual setup)
-
-| Variable | Description |
-|----------|-------------|
-| `SECRET_KEY` | JWT signing secret (required, generate 32+ char hex) |
-| `SESSION_SECRET_KEY` | Session middleware secret (required, generate 32+ char hex) |
-| `EMAIL_ENCRYPTION_KEY` | Fernet key for password encryption (required) |
-| `ADMIN_KEY` | Admin API key (optional) |
-| `OPENROUTER_API_KEY` | OpenRouter API key for AI agent |
-| `NVIDIA_API_KEY` | NVIDIA NIM API key for AI agent (fallback) |
-| `GROQ_API_KEY` | Groq API key for ML insights |
-| `DEEPSEEK_API_KEY` | DeepSeek API key for ML insights |
-| `EMAIL_PROVIDER` | `yahoo`, `gmail`, or `gmail_oauth` |
-| `YAHOO_EMAIL` | Your Yahoo email address |
-| `YAHOO_APP_PASSWORD` | Yahoo app password (requires 2FA enabled) |
-| `GOOGLE_CLIENT_ID` | Google OAuth client ID |
-| `GOOGLE_CLIENT_SECRET` | Google OAuth client secret |
-| `GOOGLE_REDIRECT_URI` | OAuth callback URL |
-| `CORS_ORIGINS` | Comma-separated allowed origins |
-| `FRONTEND_URL` | Frontend URL for OAuth redirects |
-
-### `.env` (root, for Docker setup)
-
-Same variables as above plus `DATABASE_URL`.
+*Access the local application at `http://localhost:80`*
 
 ---
 
-## How It Works
+## 📦 Production Deployment
 
-1. You log in with your **Yahoo or Gmail** credentials
-2. The app fetches **only bank alert emails** (filtered by sender address)
-3. Bank-specific parsers extract transaction details (amount, type, balance, narration)
-4. ML classifier categorizes each transaction
-5. Balances update automatically as new alerts arrive
-6. AI Agent answers questions about your spending
+The live, production version of this application is deployed at **[https://mirror-ng.vercel.app/](https://mirror-ng.vercel.app/)**. 
 
----
+The production environment includes:
+- Cloud database integration (Supabase/PostgreSQL)
+- Advanced CI/CD pipelines via GitHub Actions
+- Production-grade monitoring, logging, and secret management
 
-## Tech Stack
-
-- **Frontend**: React 18, Vite, Tailwind CSS
-- **Backend**: FastAPI, SQLAlchemy, SQLite
-- **ML/AI**: scikit-learn, OpenRouter, NVIDIA NIM, Groq, DeepSeek
-- **Email**: IMAP (Yahoo/Gmail), Gmail API (OAuth)
+*Note: This local repository showcases the core AI orchestration, data pipeline logic, and ML model serving architecture. Production-specific configurations and sensitive infrastructure code are maintained in a private repository to ensure security and compliance.*
 
 ---
 
-## License
 
-MIT
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+```
+
